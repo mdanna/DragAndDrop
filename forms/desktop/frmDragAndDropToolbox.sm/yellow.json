@@ -1,0 +1,54 @@
+{
+    "@class": "com.kony.gen.viz.model.component.KVizUserWidget",
+    "DNDConfig": null,
+    "_children_": [],
+    "_height_": {
+        "type": "string",
+        "value": "50dp"
+    },
+    "_left_": {
+        "type": "string",
+        "value": "0dp"
+    },
+    "_margin_": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "_orientation_": 1,
+    "_padding_": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "_percent_": true,
+    "_skin_": "s249ab57491944768cfd8157fa69203b",
+    "_top_": {
+        "type": "string",
+        "value": "10dp"
+    },
+    "_width_": {
+        "type": "string",
+        "value": "50dp"
+    },
+    "canUpdateUI": true,
+    "containerweight": 0,
+    "data": {},
+    "id": "yellow",
+    "info": null,
+    "iscustomlayout": false,
+    "isvisible": true,
+    "kuid": "j613b57014574939837108f446457bac",
+    "masterType": 1,
+    "name": "kony.ui.UserWidgetInstance",
+    "parent": "sourceArea",
+    "pf": "frmDragAndDropToolbox",
+    "retaincontentalignment": false,
+    "retainflexpositionproperties": false,
+    "retainflowhorizontalalignment": false,
+    "sourceUserWidget": "c36dfc3aad49401c9dec9d1e803dea7e",
+    "wType": "UserWidgetInstance",
+    "zindex": 1
+}

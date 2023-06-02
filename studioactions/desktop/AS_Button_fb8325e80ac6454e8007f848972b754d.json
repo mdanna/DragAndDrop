@@ -1,0 +1,29 @@
+{
+    "AS_Button_fb8325e80ac6454e8007f848972b754d": {
+        "id": "AS_Button_fb8325e80ac6454e8007f848972b754d",
+        "type": "ACTION_SEQUENCE",
+        "params": [{
+            "datatype": "collection",
+            "name": "eventobject"
+        }],
+        "contextObj": {
+            "name": "frmHome",
+            "type": "forms",
+            "platform": null,
+            "KUID": "jff504a902c342c3b780242b6df2f814"
+        },
+        "language": "js",
+        "actions": [{
+            "id": "NAVIGATE_TO_FORM__b231c8bf1dde4fc5a405781b95a8f1cb",
+            "type": "NAVIGATE_TO_FORM",
+            "formId": "frmDragAndDropMove",
+            "formKUID": "b581ba39f3f046c7939eb4a9caa1009a",
+            "projectName": "DragAndDrop",
+            "mappings": {},
+            "mappingsOrder": [],
+            "enableMappingEditor": true,
+            "package": "",
+            "isCustomInput": false
+        }]
+    }
+}
