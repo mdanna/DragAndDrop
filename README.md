@@ -27,104 +27,92 @@ this callback the lifecycle of the dragged object ends and the draggedObject is 
 - the dropCallback is a callback fired when the object is dropped within the boundaries of a Drop Area. After calling
 this callback the lifecycle of the dragged object ends and the draggedObject is deleted fro the drag area.
 
------------------- Doc for the DragAndDrop class -----------
-
-Creates an instance of the DragAndDrop class.
+------------------ Doc for the DragAndDrop class -----------<br>
+<b>constructor(view)</b><br>
 view: the reference to the current view
 
-constructor(view)
+Creates an instance of the DragAndDrop class.
 
 ---
-  
+<b>static suspendEvents</b>
+
 When true all event callbacks of all instances of the DragAndDrop class are not executed. 
 
-static suspendEvents
-
 ---
+<b>getDropAreas()</b>
 
 Returns an array of objects each of which represents a drop area and its related callbacks
 [{dropArea, moveCallback, dropCallback}, ...] as defined in the makeDropArea method.
 
-getDropAreas()
-
 ---
-
+<b>getTargetAreas()</b>
+  
 Return an array of references to all currently defined Target Areas.
 
-getTargetAreas()
-  
 ---
+<b>removeDropArea(id)</b><br>
+id: id of the drop area.
 
 Removes a drop area from the list of existing drop areas. One must call this method upon
 removal of a drop area from a target area.
 
-id: id of the drop area.
-removeDropArea(id)
-
 ---
+<b>getSourceObject()</b>
 
 Return the reference to the source object, on which the drag and drop actions originated.
 
-getSourceObject()
-
 ---
+<b>addTargetArea(targetArea)</b><br>
+targetArea: the reference to a flex container.
 
 Defines a given flex container as a target area.
 
-targetArea: the reference to a flex container.
-addTargetArea(targetArea)
-
 ---
+<b>addSourceArea(sourceArea)</b><br>
+sourceArea: the reference to a flex container.
 
 Defines a given flex container as a source area.
 
-sourceArea: the reference to a flex container.
-addSourceArea(sourceArea)
-
 ---
+<b>existsInArea(widget, areas)</b><br>
+widget: the reference to a widget.<br>
+areas: an array of flex containers.
 
 This is an utility method used to check wheter a given widget is a direct child of any of the areas specified.
 
-widget: the reference to a widget.
-areas: an array of flex containers.
-existsInArea(widget, areas)
-
 ---
+<b>makeDraggable(sourceObject, draggedObject)</b><br>
+sourceObject: the source object for the drag and drop action.<br>
+draggedObject: the reference to the object which is actually dragged. This is typically a clone of the source object.
 
 Defines a given object as the origin of a drag and drop action.
 Remark: the source object is a child of the Source Area while the dragged object is a child of the dragged area.
 
-sourceObject: the source object for the drag and drop action.
-draggedObject: the reference to the object which is actually dragged. This is typically a clone of the source object.
-makeDraggable(sourceObject, draggedObject)
-
 ---
+<b>makeDragArea(dragArea, dragCallback, endCallback)</b><br>
+dragArea: the reference to the flex container which is defined as the drag area<br>
+dragCallback: fired when the draggedObject {@see makeDraggable} is dragged outside the boundaries<br>
+  of a drop area. The dragCallback is called with the draggedObject reference as the only argument<br>
+  endCallback: fired when the draggedObject {@see makeDraggable} is dropped outside the boundaries<br>
+  of a drop area. The endCallback is called with the draggedObject reference as the only argument<br>
 
-Defines the drag area for the drag and drop action. That is the flex container within 
+Defines the drag area for the drag and drop action. That is the flex container within<br> 
 which boundaries an object can be dragged.
 
-dragArea: the reference to the flex container which is defined as the drag area
-dragCallback: fired when the draggedObject {@see makeDraggable} is dragged outside the boundaries
-  of a drop area. The dragCallback is called with the draggedObject reference as the only argument
-  endCallback: fired when the draggedObject {@see makeDraggable} is dropped outside the boundaries
-  of a drop area. The endCallback is called with the draggedObject reference as the only argument
-makeDragArea(dragArea, dragCallback, endCallback)
-
 ---
+<b>makeDropArea(dropArea, moveCallback, dropCallback)</b><br>
+dropArea: a flex container.<br>
+moveCallback: the callback fired when the draggedObject {@see makeDraggable} is dragged within the boundaries<br>
+  of a drop area. The moveCallback is called with the following aruments moveCallback(draggedObject, dropArea).<br>
+dropCallback: the callback fired when the draggedObject {@see makeDraggable} is dropped within the boundaries<br>
+  of a drop area. The dropCallback is called with the following aruments dropCallback(draggedObject, dropArea).<br>
 
 Sets a given container as a drop area. When an object is dragged or dropped inside a drop area 
 the corresponding moveCallback or dropCallback are fired.
 
-dropArea: a flex container.
-moveCallback: the callback fired when the draggedObject {@see makeDraggable} is dragged within the boundaries
-  of a drop area. The moveCallback is called with the following aruments moveCallback(draggedObject, dropArea).
-dropCallback: the callback fired when the draggedObject {@see makeDraggable} is dropped within the boundaries
-  of a drop area. The dropCallback is called with the following aruments dropCallback(draggedObject, dropArea).
-makeDropArea(dropArea, moveCallback, dropCallback)
-
 ---
+<b>isInsideDropArea({x, y, dropArea})</b>
 
 This is an utility method used to determine whether a given point haveing coordinates {x, y}
 in the drag area lies inside the given drop area.
 
-isInsideDropArea({x, y, dropArea})
