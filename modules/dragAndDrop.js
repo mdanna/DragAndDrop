@@ -1,4 +1,5 @@
 /*
+DragAndDrop rel. 1.0.2
 
 The DragAndDrop class may be used to implement a drag and drop context inside a form.
 The DragAndDrop class deals with the following concepts:
@@ -28,14 +29,25 @@ this callback the lifecycle of the dragged object ends and the draggedObject is 
 - the dropCallback is a callback fired when the object is dropped within the boundaries of a Drop Area. After calling
 this callback the lifecycle of the dragged object ends and the draggedObject is deleted fro the drag area.
 
+WARNING: To use this class you MUST check the box Ënable JS Library mode" in Project Settings.
+
 */
 
 
 class DragAndDrop{
   /**
-  * When true all event callbacks of all instances of the DragAndDrop class are not executed. 
+  * When true all event callbacks of this DragAndDrop instance are not executed. 
   */
-  static suspendEvents = false;
+  suspendEvents(suspend){
+    this._suspendEvents = !!suspend;
+  }
+  
+  /**
+  * Returns true if the event callbacks are suspended.
+  */
+  eventsSuspended(){
+    return !!this._suspendEvents;
+  }
 
   /**
   * Creates an instance of the DragAndDrop class.
@@ -43,6 +55,7 @@ class DragAndDrop{
   * view: the reference to the current view
   */
   constructor(view){
+    this._suspendEvents = false;
     this._view = view;
     this._dragging = false;
     this._dragged = null;
@@ -133,7 +146,7 @@ class DragAndDrop{
   */
   makeDraggable(sourceObject, draggedObject){
     sourceObject.onTouchStart = (widget, x, y) => {
-      if(!DragAndDrop.suspendEvents){
+      if(!this._suspendEvents){
         if(this.existsInArea(sourceObject, this._sourceAreas) || this.existsInArea(sourceObject, this._targetAreas)){
           //           voltmx.sdk.logsdk.info(`onTouchStart: ${sourceObject.id}`);
           this._sourceObject = sourceObject;
@@ -169,7 +182,7 @@ class DragAndDrop{
     this._dragArea = dragArea;
 
     dragArea.onTouchStart = (widget, x, y) => {
-      if(!DragAndDrop.suspendEvents){
+      if(!this._suspendEvents){
         if(this._dragging && this._dragged){
           //           voltmx.sdk.logsdk.info(`onTouchStart: ${widget.id}`);
           this._startLeft = parseInt(this._dragged.left.replace(/dp/g, ''));
@@ -181,7 +194,7 @@ class DragAndDrop{
     };
 
     dragArea.onTouchMove = (widget, x, y) => {
-      if(!DragAndDrop.suspendEvents){
+      if(!this._suspendEvents){
         if(this._dragging && this._dragged){
           const deltaX = Math.round(x) - this._startX;
           const deltaY = Math.round(y) - this._startY;
@@ -208,7 +221,7 @@ class DragAndDrop{
     };
 
     dragArea.onTouchEnd = (widget, x, y) => {
-      if(!DragAndDrop.suspendEvents){
+      if(!this._suspendEvents){
         if(this._dragging && this._dragged){
           //           voltmx.sdk.logsdk.info(`onTouchEnd: ${widget.id}`);
           this._dragging = false;
@@ -218,7 +231,7 @@ class DragAndDrop{
           let found = false;
 
           try {
-            for(const {dropArea, dropCallback} of this._dropAreas){
+            for(let {dropArea, dropCallback} of this._dropAreas){
               if(this.isInsideDropArea({x, y, dropArea})){
                 this._dragged.left = `${this._startLeft + deltaX}dp`;
                 this._dragged.top = `${this._startTop + deltaY}dp`;
@@ -228,7 +241,7 @@ class DragAndDrop{
                 break;
               }
             }
-          } catch {
+          } catch(error) {
             found = false;
           }
 
@@ -281,7 +294,7 @@ class DragAndDrop{
 
 
   /**
-  * This is an utility method used to determine whether a given point haveing coordinates {x, y}
+  * This is an utility method used to determine whether a given point having coordinates {x, y}
   * in the drag area lies inside the given drop area.
   */
   isInsideDropArea({x, y, dropArea}){

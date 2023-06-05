@@ -47,13 +47,14 @@ define({
             id: rectangleId,
           }, {}, {});
           rectangle.skinRectangle = targetSkin;
+          rectangle.setDragAndDrop(this.dnd);
           const diviId = `divider${new Date().getTime()}`;
           const divi = new com.hcl.mario.Divider({
             id: diviId
           });
 
           rectangle.onDelete = () => {
-//             voltmx.sdk.logsdk.info(`onDelete: ${rectangleId} ${targetSkin}`);
+            //             voltmx.sdk.logsdk.info(`onDelete: ${rectangleId} ${targetSkin}`);
             targetArea.remove(divi);
             this.dnd.removeDropArea(divi.id);
             targetArea.remove(rectangle);
@@ -108,7 +109,7 @@ define({
           listAreaContainer.add(listArea);
 
           deleteButton.onTouchStart = () => {
-            DragAndDrop.suspendEvents = true;
+            this.dnd.suspendEvents(true);
             globals.objectToDelete || (globals.objectToDelete = listAreaContainerId);
           };
           deleteButton.onTouchEnd = () => {
@@ -120,10 +121,11 @@ define({
               listAreaContainer.parent.remove(listAreaContainer);
               listAreaContainer.parent.forceLayout();
             }
-            setTimeout(() => {
+            voltmx.timer.schedule('timer1', () => {
               globals.objectToDelete = null;
-              DragAndDrop.suspendEvents = false;
-            }, 300);
+              this.dnd.suspendEvents(false);
+            }, 0.3);
+
           };
 
           const ind2 = targetArea.widgets().findIndex((widget) => {
@@ -189,7 +191,7 @@ define({
           splitArea.add(splitRight);
 
           deleteButtonSplit.onTouchStart = () => {
-            DragAndDrop.suspendEvents = true;
+            this.dnd.suspendEvents(true);
             globals.objectToDelete || (globals.objectToDelete = splitAreaId);
           };
           deleteButtonSplit.onTouchEnd = () => {
@@ -203,10 +205,10 @@ define({
               splitArea.parent.remove(splitArea);
               splitArea.parent.forceLayout();
             }
-            setTimeout(() => {
+            voltmx.timer.schedule('timer2', () => {
               globals.objectToDelete = null;
-              DragAndDrop.suspendEvents = false;
-            }, 300);
+              this.dnd.suspendEvents(false);
+            }, 0.3);
           };
 
           const ind3 = targetArea.widgets().findIndex((widget) => {

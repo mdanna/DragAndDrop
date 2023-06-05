@@ -2,9 +2,9 @@ define(function() {
   return {
     constructor(baseConfig, layoutConfig, pspConfig) {
       this.view.flxDelete.onTouchStart = () => {
-        if(!DragAndDrop.suspendEvents){
+        if(!this._dnd.eventsSuspended()){
 //           voltmx.sdk.logsdk.info(`onTouchStart: ${this.view.id} ${this.view.flxRectangle.skin}`);
-          DragAndDrop.suspendEvents = true;
+          this._dnd.suspendEvents(true);
           globals.objectToDelete || (globals.objectToDelete = this.view.id);
         }
       };
@@ -13,10 +13,10 @@ define(function() {
         if(globals.objectToDelete === this.view.id){
 //           voltmx.sdk.logsdk.info(`onTouchEnd: ${this.view.id} ${this.view.flxRectangle.skin}`);
           this.onDelete();
-          setTimeout(() => {
+          voltmx.timer.schedule('rectangleTimer', () => {
             globals.objectToDelete = null;
-            DragAndDrop.suspendEvents = false;
-          }, 300);
+            this._dnd.suspendEvents(false);
+          }, 0.3);
         }
       };
     },
@@ -28,7 +28,12 @@ define(function() {
     getDragClone(id){
       const rectangle = new com.hcl.mario.Rectangle({id}, {}, {});  
       rectangle.skinRectangle = this.view.flxRectangle.skin;
+      rectangle.setDragAndDrop(this._dnd);
       return rectangle;
+    },
+    
+    setDragAndDrop(dnd){
+      this._dnd = dnd;
     }
   };
 });

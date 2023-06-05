@@ -5,11 +5,23 @@
             "custom": [
                 {
                     "group": "General",
-                    "kuid": "d24a83adb622424a91856624cbc09993",
+                    "kuid": "cbc3c258deb54e89a71e06a5fecdc032",
                     "paramList": [],
                     "propertyKey": "getDragClone",
                     "pw": {
                         "displayName": "getDragClone",
+                        "uiRepresentation": "Label-Label-Button-Button"
+                    },
+                    "srcWgtKUID": "a22b14487da34723b02374c66bb9c884",
+                    "type": "event"
+                },
+                {
+                    "group": "General",
+                    "kuid": "d06f72829d584d8b8eee3fc14ebda41c",
+                    "paramList": [],
+                    "propertyKey": "setDragAndDrop",
+                    "pw": {
+                        "displayName": "setDragAndDrop",
                         "uiRepresentation": "Label-Label-Button-Button"
                     },
                     "srcWgtKUID": "a22b14487da34723b02374c66bb9c884",
