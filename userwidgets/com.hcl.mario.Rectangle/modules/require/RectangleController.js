@@ -13,10 +13,12 @@ define(function() {
         if(globals.objectToDelete === this.view.id){
 //           voltmx.sdk.logsdk.info(`onTouchEnd: ${this.view.id} ${this.view.flxRectangle.skin}`);
           this.onDelete();
-          voltmx.timer.schedule('rectangleTimer', () => {
+          const timerId = 'rectangleTimer' + new Date().getTime();
+          voltmx.timer.schedule(timerId, () => {
             globals.objectToDelete = null;
             this._dnd.suspendEvents(false);
-          }, 0.3);
+            voltmx.timer.cancel(timerId);
+          }, 0.3, false);
         }
       };
     },

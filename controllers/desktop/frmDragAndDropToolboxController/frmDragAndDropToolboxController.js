@@ -121,10 +121,12 @@ define({
               listAreaContainer.parent.remove(listAreaContainer);
               listAreaContainer.parent.forceLayout();
             }
-            voltmx.timer.schedule('timer1', () => {
+            const timerId = 'timer1' + new Date().getTime();
+            voltmx.timer.schedule(timerId, () => {
               globals.objectToDelete = null;
               this.dnd.suspendEvents(false);
-            }, 0.3);
+              voltmx.timer.cancel(timerId);
+            }, 0.3, false);
 
           };
 
@@ -205,10 +207,12 @@ define({
               splitArea.parent.remove(splitArea);
               splitArea.parent.forceLayout();
             }
-            voltmx.timer.schedule('timer2', () => {
+            const timerId = 'timer2' + new Date().getTime();
+            voltmx.timer.schedule(timerId, () => {
               globals.objectToDelete = null;
               this.dnd.suspendEvents(false);
-            }, 0.3);
+              voltmx.timer.cancel(timerId);
+            }, 0.3, false);
           };
 
           const ind3 = targetArea.widgets().findIndex((widget) => {
